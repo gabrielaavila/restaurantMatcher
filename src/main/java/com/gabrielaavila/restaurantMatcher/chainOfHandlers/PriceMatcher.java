@@ -1,7 +1,9 @@
 package com.gabrielaavila.restaurantMatcher.chainOfHandlers;
 
 import com.gabrielaavila.restaurantMatcher.domain.Restaurant;
+import com.gabrielaavila.restaurantMatcher.domain.RestaurantDataStructure;
 import com.gabrielaavila.restaurantMatcher.enums.Parameters;
+import lombok.AllArgsConstructor;
 import lombok.NonNull;
 
 import java.util.ArrayList;
@@ -11,6 +13,10 @@ import java.util.HashSet;
 import static com.gabrielaavila.restaurantMatcher.enums.Parameters.PRICE;
 
 public class PriceMatcher extends Matcher {
+    public PriceMatcher(RestaurantDataStructure restaurantsInfo) {
+        super(restaurantsInfo);
+    }
+
     @Override
     public HashSet<Integer> execute(@NonNull HashSet<Integer> results, HashMap<Parameters, String> params) {
 

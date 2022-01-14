@@ -1,13 +1,13 @@
 package com.gabrielaavila.restaurantMatcher.service;
 
-import com.gabrielaavila.restaurantMatcher.chainOfHandlers.ChainCreator;
+import com.gabrielaavila.restaurantMatcher.chainOfHandlers.ChainCreatorService;
 import com.gabrielaavila.restaurantMatcher.chainOfHandlers.Handler;
 import com.gabrielaavila.restaurantMatcher.domain.Restaurant;
 import com.gabrielaavila.restaurantMatcher.domain.RestaurantDataStructure;
 import com.gabrielaavila.restaurantMatcher.enums.Parameters;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -19,12 +19,13 @@ import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 import static java.util.stream.Collectors.toList;
 
+@Service
 public class RestaurantMatcherService {
 
     private static final int RESULTS_LIMIT = 5;
 
     @Autowired
-    private ChainCreator chainCreator;
+    private ChainCreatorService chainCreator;
     
     @Autowired
     private RestaurantDataStructure restaurantInfo;
@@ -33,7 +34,7 @@ public class RestaurantMatcherService {
                                                   Integer rating, Integer price) {
 
         HashMap<Parameters, String> params = loadParams(restaurantName, cuisine, distance, rating, price);
-        Handler handler = chainCreator.createChainOfMatchers(params);
+        Handler handler = chainCreator.createChainOfMatchers(params, restaurantInfo);
 
         if (isNull(handler)) {
             return Collections.emptyList();
@@ -68,7 +69,7 @@ public class RestaurantMatcherService {
             params.put(Parameters.RATING, rating.toString());
         }
         if (nonNull(price)) {
-            params.put(Parameters.CUISINE, price.toString());
+            params.put(Parameters.PRICE, price.toString());
         }
         return params;
     }

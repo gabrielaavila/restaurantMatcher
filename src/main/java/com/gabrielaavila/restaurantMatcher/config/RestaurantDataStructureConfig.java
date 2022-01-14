@@ -20,8 +20,8 @@ public class RestaurantDataStructureConfig {
     @Autowired
     private LoaderService loaderService;
 
-    @Bean(name = "restaurantInfo")
-    RestaurantDataStructure getRestaurantDataStructures() {
+    @Bean
+    public RestaurantDataStructure getRestaurantDataStructures() {
         RestaurantDataStructure restaurantInfo = new RestaurantDataStructure();
         restaurantInfo.setRestaurants(loaderService.loadRestaurants(restaurantsFilepath));
         restaurantInfo.setCuisines(loaderService.loadCuisines(cuisinesFilepath));

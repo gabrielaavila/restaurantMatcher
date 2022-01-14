@@ -4,6 +4,7 @@ import com.gabrielaavila.restaurantMatcher.domain.RestaurantDataStructure;
 import com.gabrielaavila.restaurantMatcher.domain.Trie;
 import com.gabrielaavila.restaurantMatcher.domain.Restaurant;
 import com.gabrielaavila.restaurantMatcher.enums.Parameters;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
@@ -16,7 +17,11 @@ public abstract class Matcher implements Handler {
     private Handler nextMatcher;
 
     @Autowired
-    private RestaurantDataStructure restaurantsInfo;
+    public RestaurantDataStructure restaurantsInfo;
+
+    public Matcher(RestaurantDataStructure restaurantsInfo) {
+        this.restaurantsInfo = restaurantsInfo;
+    }
 
     @Override
     public Handler setNext(Handler next) {

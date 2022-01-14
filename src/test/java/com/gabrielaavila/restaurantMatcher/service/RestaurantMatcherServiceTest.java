@@ -1,6 +1,6 @@
 package com.gabrielaavila.restaurantMatcher.service;
 
-import com.gabrielaavila.restaurantMatcher.chainOfHandlers.ChainCreator;
+import com.gabrielaavila.restaurantMatcher.chainOfHandlers.ChainCreatorService;
 import com.gabrielaavila.restaurantMatcher.chainOfHandlers.RestaurantNameMatcher;
 import com.gabrielaavila.restaurantMatcher.domain.Restaurant;
 import com.gabrielaavila.restaurantMatcher.domain.RestaurantDataStructure;
@@ -19,12 +19,13 @@ import static com.gabrielaavila.restaurantMatcher.mothers.RestaurantNameMother.g
 import static com.gabrielaavila.restaurantMatcher.mothers.RestaurantNameMother.getRestaurantList;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class RestaurantMatcherServiceTest {
     @Mock
-    private ChainCreator chainCreator;
+    private ChainCreatorService chainCreator;
 
     @Mock
     private RestaurantNameMatcher handler;
@@ -40,7 +41,7 @@ class RestaurantMatcherServiceTest {
         ArrayList<Restaurant> restaurants = getRestaurantList();
         HashSet<Integer> results = new HashSet<>(Arrays.asList(1,2));
 
-        when(chainCreator.createChainOfMatchers(any())).thenReturn(handler);
+        when(chainCreator.createChainOfMatchers(any(), any(RestaurantDataStructure.class))).thenReturn(handler);
         when(restaurantInfo.getRestaurants()).thenReturn(restaurants);
         when(handler.execute(any(), any())).thenReturn(results);
 
@@ -63,7 +64,7 @@ class RestaurantMatcherServiceTest {
 
         HashSet<Integer> results = new HashSet<>(Arrays.asList(0,1,2,3));
 
-        when(chainCreator.createChainOfMatchers(any())).thenReturn(handler);
+        when(chainCreator.createChainOfMatchers(any(), any(RestaurantDataStructure.class))).thenReturn(handler);
         when(restaurantInfo.getRestaurants()).thenReturn(restaurants);
         when(handler.execute(any(), any())).thenReturn(results);
 
@@ -90,7 +91,7 @@ class RestaurantMatcherServiceTest {
 
         HashSet<Integer> results = new HashSet<>(Arrays.asList(0,1,2,3,4,5,6));
 
-        when(chainCreator.createChainOfMatchers(any())).thenReturn(handler);
+        when(chainCreator.createChainOfMatchers(any(), any(RestaurantDataStructure.class))).thenReturn(handler);
         when(restaurantInfo.getRestaurants()).thenReturn(restaurants);
         when(handler.execute(any(), any())).thenReturn(results);
 

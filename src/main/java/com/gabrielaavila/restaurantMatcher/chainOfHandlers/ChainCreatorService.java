@@ -1,29 +1,32 @@
 package com.gabrielaavila.restaurantMatcher.chainOfHandlers;
 
+import com.gabrielaavila.restaurantMatcher.domain.RestaurantDataStructure;
 import com.gabrielaavila.restaurantMatcher.enums.Parameters;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class ChainCreator {
+@Service
+public class ChainCreatorService {
 
-    public Handler createChainOfMatchers(HashMap<Parameters, String> params) {
+    public Handler createChainOfMatchers(HashMap<Parameters, String> params, RestaurantDataStructure restaurantInfo) {
         ArrayList<Handler> handlersList = new ArrayList<>();
 
         if (params.containsKey(Parameters.RESTAURANT_NAME)) {
-            handlersList.add(new RestaurantNameMatcher());
+            handlersList.add(new RestaurantNameMatcher(restaurantInfo));
         }
         if (params.containsKey(Parameters.CUISINE)) {
-            handlersList.add(new CuisineMatcher());
+            handlersList.add(new CuisineMatcher(restaurantInfo));
         }
         if (params.containsKey(Parameters.DISTANCE)) {
-            handlersList.add(new DistanceMatcher());
+            handlersList.add(new DistanceMatcher(restaurantInfo));
         }
         if (params.containsKey(Parameters.RATING)) {
-            handlersList.add(new RatingMatcher());
+            handlersList.add(new RatingMatcher(restaurantInfo));
         }
         if (params.containsKey(Parameters.PRICE)) {
-            handlersList.add(new PriceMatcher());
+            handlersList.add(new PriceMatcher(restaurantInfo));
         }
 
         return setChainOfHandlers(handlersList);

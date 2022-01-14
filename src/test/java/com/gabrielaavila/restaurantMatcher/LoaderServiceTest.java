@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Map;
 
 import static com.gabrielaavila.restaurantMatcher.mothers.CuisineMother.getCuisineList;
+import static com.gabrielaavila.restaurantMatcher.mothers.RestaurantNameMother.getRestaurant;
 import static com.gabrielaavila.restaurantMatcher.mothers.RestaurantNameMother.getRestaurantList;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -26,7 +27,7 @@ class LoaderServiceTest {
     public void testLoadRestaurantsSuccessfully() {
         ArrayList<Restaurant> restaurants = service.loadRestaurants(RESTAURANTS_FILEPATH);
 
-        assertThat(restaurants).isNotEmpty().hasSize(9)
+        assertThat(restaurants).isNotEmpty().hasSize(200)
                 .extracting(Restaurant::getName)
                 .contains("Deliciousgenix")
                 .contains("Cuts Delicious");
@@ -75,5 +76,22 @@ class LoaderServiceTest {
         assertThat(restaurantsByCuisine.searchWordsIndexByPrefix("sian")).isEmpty();
     }
 
+    @Test
+    public void testLoadTriesWordsWithSpecialCharactersSuccessfully() {
+        RestaurantDataStructure dataStructure = new RestaurantDataStructure();
+        ArrayList<Restaurant> restaurants = new ArrayList<>();
+        restaurants.add(getRestaurant("banana .rest/", 1, 2, 10, 3));
+        dataStructure.setRestaurants(restaurants);
+        dataStructure.setCuisines(getCuisineList());
 
+        dataStructure = service.loadTries(dataStructure);
+
+        assertNotNull(dataStructure);
+        Trie restaurantByName = dataStructure.getRestaurantsByName();
+
+        assertThat(restaurantByName.searchWordsIndexByPrefix("banana")).isNotEmpty()
+                .hasSize(1);
+
+        assertThat(restaurantByName.searchWordsIndexByPrefix("ma")).isEmpty();
+    }
 }

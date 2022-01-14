@@ -11,12 +11,13 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class ChainCreatorTest {
-    private ChainCreator creator = new ChainCreator();
+
+    private ChainCreatorService creator = new ChainCreatorService();
 
 
     @Test
     public void testCreateChainWithAllParameters() {
-        Handler chain = creator.createChainOfMatchers(getMapWithAllParameters());
+        Handler chain = creator.createChainOfMatchers(getMapWithAllParameters(), null);
 
         assertTrue(chain instanceof RestaurantNameMatcher);
         chain = chain.getNext();
@@ -33,20 +34,20 @@ class ChainCreatorTest {
 
     @Test
     public void testCreateChainWithNoParameters() {
-        Handler chain = creator.createChainOfMatchers(new HashMap<>());
+        Handler chain = creator.createChainOfMatchers(new HashMap<>(), null);
         assertNull(chain);
     }
 
     @Test
     public void testCreateChainWithOneParameter() {
-        Handler chain = creator.createChainOfMatchers(getMapWith1Param());
+        Handler chain = creator.createChainOfMatchers(getMapWith1Param(), null);
         assertTrue(chain instanceof RestaurantNameMatcher);
         assertNull(chain.getNext());
     }
 
     @Test
     public void testCreateChainWithNonSequentialParameters() {
-        Handler chain = creator.createChainOfMatchers(getMapWithNoSequentialParams());
+        Handler chain = creator.createChainOfMatchers(getMapWithNoSequentialParams(), null);
         assertTrue(chain instanceof CuisineMatcher);
         chain = chain.getNext();
         assertTrue(chain instanceof PriceMatcher);
