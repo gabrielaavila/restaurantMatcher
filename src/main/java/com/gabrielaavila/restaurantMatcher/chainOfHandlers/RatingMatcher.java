@@ -35,7 +35,6 @@ public class RatingMatcher extends Matcher {
         ArrayList<Restaurant> restaurants = getRestaurants();
 
         for (int i=0; i < restaurants.size(); i++) {
-            //restaurant rating should be equal or higher than given rating
             if (restaurants.get(i).getRating() >= rating) {
                 results.add(i);
             }

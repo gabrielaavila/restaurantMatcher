@@ -36,7 +36,6 @@ public class PriceMatcher extends Matcher {
         ArrayList<Restaurant> restaurants = getRestaurants();
 
         for (int i=0; i < restaurants.size(); i++) {
-            //restaurant price should be equal or smaller than given price
             if (restaurants.get(i).getPrice() <= price) {
                 results.add(i);
             }

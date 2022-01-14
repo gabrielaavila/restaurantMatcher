@@ -36,7 +36,6 @@ public class DistanceMatcher extends Matcher {
         ArrayList<Restaurant> restaurants = getRestaurants();
 
         for (int i=0; i < restaurants.size(); i++) {
-            //restaurant distance should be equal or smaller than given distance
             if (restaurants.get(i).getDistance() <= distance) {
                 results.add(i);
             }

@@ -2,7 +2,6 @@ package com.gabrielaavila.restaurantMatcher.chainOfHandlers;
 
 import com.gabrielaavila.restaurantMatcher.domain.RestaurantDataStructure;
 import com.gabrielaavila.restaurantMatcher.enums.Parameters;
-import lombok.AllArgsConstructor;
 import lombok.NonNull;
 
 import java.util.HashMap;

@@ -20,11 +20,11 @@ To run the unit tests, just execute the command "./gradlew test"
 To test the API, execute the "How to run" steps and then, execute the following:
 
 1. The service will be available at port 8080. To find a restaurant, call the URl http://localhost:8080/restaurant-matcher/matches and provide one or more of the 5 query parameters below: 
-   - restaurantName : Should be a string
-   - cuisine : Should be a string
-   - distance: Should be an integer 
-   - rating: Should be an integer
-   - price: Should be an integer 
+   - restaurantName : String 
+   - cuisine : String
+   - distance: Integer (min = 1; max = 10) 
+   - rating: Integer (min = 1; max = 5)
+   - price: Integer (min = 10; max = 50)
 
 You could call the URL using your browser or an application such as Postman; 
 
